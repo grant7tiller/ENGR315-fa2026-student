@@ -28,6 +28,12 @@ Step 2: Iterate through the vector(s) and calculate the dot product
 dot_product = 0
 
 ### Your code here
+for i in range(fixed_length):
+    dot_product += vector_a[i] * vector_b[i]
+
+print("Vector A: ", vector_a)
+print("Vector B: ", vector_b)
+print("Dot product: ", dot_product)
 
 """
 Step 3: Calculate the error of your dot_product compared with numpy's solution

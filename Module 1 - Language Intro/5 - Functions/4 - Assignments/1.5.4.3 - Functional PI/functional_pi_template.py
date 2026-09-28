@@ -10,9 +10,32 @@ def my_pi(target_error):
     """
 
     ### YOUR CODE HERE ###
+  # Initial values
+    a = 1
+    b = 1 / math.sqrt(2)
+    p = 1
+    t = 1 / 4
 
-    # change this so an actual value is returned
-    return 0
+    while True:
+
+        # Save the old values
+        old_a = a
+        old_b = b
+
+        # Gauss-Legendre updates
+        a = (old_a + old_b) / 2
+        b = math.sqrt(old_a * old_b)
+        t = t - p * (old_a - old_b) ** 2 / 4
+        p = 2 * p
+
+        # Calculate approximation of pi
+        approximation = (a + b) ** 2 / (4 * t)
+
+        # Check whether desired error has been reached
+        if abs(math.pi - approximation) < target_error:
+            return approximation
+
+
 
 
 

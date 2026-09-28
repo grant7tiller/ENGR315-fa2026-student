@@ -30,3 +30,7 @@ while y < 5:
 # write a loop entirely from scratch that prints out a statement 6 times
 # the counter variable you will use is z
 z = 0
+
+while z < 6:
+    print("This is statement number " + str(z + 1))
+    z = z + 1   
