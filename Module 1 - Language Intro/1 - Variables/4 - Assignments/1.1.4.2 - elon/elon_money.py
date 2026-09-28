@@ -11,12 +11,17 @@ would his investment be worth in 10-year and 20-year bonds? Assume the 10-year b
 the 20-year bonds pay 4.32%, with each compounding annually.
 Note that Elon's capital will be $33B.
 """
+#rates of each bond type
+ten_year_rate = 0.0396
+twenty_year_rate = 0.0432
 
-### all your code below ###
-
+investment = 33_000_000_000
 
 # final answer for 10-year
-ten_year_final = None
+ten_year_final = investment * (1 + ten_year_rate) ** 10
 
 # final answer for 20-year
-twenty_year_final = None
+twenty_year_final = investment * (1 + twenty_year_rate) ** 20
+
+print("Final value of 10-year bond: ", ten_year_final)
+print("Final value of 20-year bond: ", twenty_year_final)

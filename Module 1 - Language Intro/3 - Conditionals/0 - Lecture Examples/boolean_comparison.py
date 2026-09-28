@@ -1,5 +1,8 @@
 # some random variable to compare
-t = 30
+import random
+random_num = random.randint(0, 67)
+
+t = random_num
 
 print("Using t = "+str(t))
 
