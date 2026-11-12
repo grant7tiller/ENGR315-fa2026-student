@@ -1,5 +1,9 @@
 import numpy as np
 from ekg_testbench import EKGTestBench
+from scipy.signal import butter, filtfilt, find_peaks
+
+
+FS = 360
 
 def detect_heartbeats(filepath):
     """
@@ -16,35 +20,46 @@ def detect_heartbeats(filepath):
 
     # load data in matrix from CSV file; skip first two rows
     ## your code here
+    data = np.loadtxt(path, delimiter=',', skiprows=2, usecols=(1, 2))
 
     # save each vector as own variable
     ## your code here
-
+    mlii = data[:, 0]   # lead MLII (modified limb lead II)
+    v1 = data[:, 1]  # lead V1  
     # identify one column to process. Call that column signal
 
-    signal = -1 ## your code here
+    signal = mlii  # Example: using MLII lead for processing
 
     # pass data through LOW PASS FILTER (OPTIONAL)
     ## your code here
-
+    b, a = butter(3, 15, btype='low', fs=FS)
+    signal = filtfilt(b, a, signal)
     # pass data through HIGH PASS FILTER (OPTIONAL) to create BAND PASS result
     ## your code here
-
+    b, a = butter(3, 5, btype='high', fs=FS)
+    signal = filtfilt(b, a, signal)
     # pass data through differentiator
     ## your code here
+    signal = np.gradient(signal)
 
     # pass data through square function
     ## your code here
+    signal = signal ** 2
 
     # pass through moving average window
     ## your code here
-
+    window = int(0.150 * FS)
+    signal = np.convolve(signal, np.ones(window)/window, mode='same')
     # use find_peaks to identify peaks within averaged/filtered data
     # save the peaks result and return as part of testbench result
 
     ## your code here peaks,_ = find_peaks(....)
+    height = 0.12 * np.percentile(signal, 99)
+    distance = int(0.25 * FS)
+    peaks, _ = find_peaks(signal, height=height, distance=distance)
+ 
+    beats = peaks
 
-    beats = None
 
     # do not modify this line
     return signal, beats
